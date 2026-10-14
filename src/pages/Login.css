@@ -1,0 +1,185 @@
+.login {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* ---------- Panel oscuro ---------- */
+.login-marca {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--esp-4);
+  padding: var(--esp-6) var(--esp-6) var(--esp-5);
+  overflow: hidden;
+  background: var(--color-carbon);
+  color: var(--color-sobre-oscuro);
+}
+
+.login-logo {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--color-superficie);
+  font-weight: 700;
+  font-size: 22px;
+  text-decoration: none;
+}
+
+.login-marca-texto {
+  position: relative;
+  z-index: 1;
+  max-width: 400px;
+}
+
+.login-titulo-marca {
+  font-family: var(--font-titulos);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--color-superficie);
+  font-size: var(--fs-hero);
+}
+
+.login-marca-texto p + p {
+  margin-top: var(--esp-2);
+  font-size: 20px;
+  opacity: .85;
+}
+
+.login-lugar {
+  position: relative;
+  z-index: 1;
+  opacity: .7;
+}
+
+.login-circulo {
+  position: absolute;
+  right: -140px;
+  bottom: -140px;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: var(--color-ladrillo);
+}
+
+/* ---------- Lado del formulario ---------- */
+.login-lado {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--esp-8) var(--esp-3);
+}
+
+.login-volver {
+  position: absolute;
+  top: var(--esp-4);
+  right: var(--esp-5);
+}
+
+.login-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-2);
+  width: 100%;
+  max-width: 400px;
+  padding: var(--esp-4);
+}
+
+.login-card h1 {
+  font-size: var(--fs-seccion);
+}
+
+.login-sub {
+  margin-top: calc(-1 * var(--esp-1));
+}
+
+.login-card .btn {
+  margin-top: var(--esp-1);
+}
+
+.login-card .alerta-error:focus {
+  outline: none;
+}
+
+.login-ayuda {
+  text-align: center;
+  font-size: var(--fs-chico);
+}
+
+.input-con-accion {
+  position: relative;
+}
+
+.input-con-accion .input {
+  padding-right: 96px;
+}
+
+.input-accion {
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  min-height: 36px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--color-ladrillo);
+  font-weight: 700;
+  font-size: var(--fs-chico);
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.input-accion:hover {
+  background: var(--color-ladrillo-suave);
+}
+
+@media (max-width: 1023px) {
+  .login {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  .login-marca {
+    padding: var(--esp-3) var(--gutter);
+  }
+
+  .login-marca-texto,
+  .login-lugar {
+    display: none;
+  }
+
+  .login-circulo {
+    right: -60px;
+    bottom: -120px;
+    width: 180px;
+    height: 180px;
+  }
+
+  .login-lado {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: var(--esp-3);
+    padding: var(--esp-3) var(--gutter) var(--esp-6);
+  }
+
+  .login-volver {
+    position: static;
+  }
+
+  .login-card {
+    align-self: center;
+  }
+}
+
+@media (max-width: 639px) {
+  .login-card {
+    padding: var(--esp-3) var(--esp-2);
+  }
+}

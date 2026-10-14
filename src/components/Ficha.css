@@ -1,0 +1,72 @@
+.ficha {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--esp-2);
+  margin: 0;
+  padding: var(--esp-2) var(--esp-3);
+}
+
+/* En escritorio el valor va arriba de la etiqueta, al lado del ícono */
+.ficha-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "icono valor"
+    "icono etiqueta";
+  column-gap: 12px;
+  align-items: center;
+}
+
+.ficha-icono {
+  grid-area: icono;
+  color: var(--color-ladrillo);
+}
+
+.ficha-item dd {
+  grid-area: valor;
+  margin: 0;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.ficha-item dt {
+  grid-area: etiqueta;
+  color: var(--color-texto-secundario);
+  font-size: var(--fs-chico);
+}
+
+@media (max-width: 1023px) {
+  .ficha {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 639px) {
+  .ficha {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0 var(--esp-2);
+    border: 1px solid var(--color-borde);
+    box-shadow: none;
+  }
+
+  .ficha-item {
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas: "icono etiqueta valor";
+    padding: 12px 0;
+  }
+
+  .ficha-item + .ficha-item {
+    border-top: 1px solid var(--color-borde);
+  }
+
+  .ficha-item dt {
+    color: var(--color-texto-secundario);
+    font-size: var(--fs-cuerpo);
+  }
+
+  .ficha-item dd {
+    font-size: var(--fs-cuerpo);
+  }
+}

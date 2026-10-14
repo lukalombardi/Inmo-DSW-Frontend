@@ -1,0 +1,243 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-fondo);
+  color: var(--color-carbon);
+  font-family: var(--font-texto);
+  font-size: var(--fs-cuerpo);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  margin: 0;
+  font-family: var(--font-titulos);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--color-carbon);
+}
+
+p {
+  margin: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-ladrillo);
+  outline-offset: 2px;
+}
+
+.contenedor {
+  width: 100%;
+  max-width: calc(var(--ancho-max) + 2 * var(--gutter));
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.texto-secundario {
+  color: var(--color-texto-secundario);
+}
+
+.visualmente-oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Botones ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--esp-1);
+  min-height: 48px;
+  padding: 0 var(--esp-3);
+  border: 2px solid transparent;
+  border-radius: var(--radio-boton);
+  font-weight: 700;
+  font-size: var(--fs-cuerpo);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color .15s, border-color .15s, color .15s;
+}
+
+.btn-primario {
+  background: var(--color-ladrillo);
+  color: var(--color-superficie);
+}
+
+.btn-primario:hover {
+  background: var(--color-ladrillo-hover);
+}
+
+.btn-secundario {
+  background: transparent;
+  border-color: var(--color-carbon);
+  color: var(--color-carbon);
+}
+
+.btn-secundario:hover {
+  background: var(--color-carbon);
+  color: var(--color-superficie);
+}
+
+.btn:disabled {
+  opacity: .6;
+  cursor: default;
+}
+
+.btn-bloque {
+  width: 100%;
+}
+
+.link-volver {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--esp-1);
+  color: var(--color-ladrillo);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.link-volver:hover {
+  color: var(--color-ladrillo-hover);
+  text-decoration: underline;
+}
+
+/* ---------- Badges y chips ---------- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px var(--esp-2);
+  border-radius: var(--radio-pildora);
+  background: var(--color-ladrillo);
+  color: var(--color-superficie);
+  font-weight: 700;
+  font-size: var(--fs-chico);
+  line-height: 1.5;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--esp-1);
+  min-height: 40px;
+  padding: 0 var(--esp-2);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-pildora);
+  background: var(--color-fondo);
+  color: var(--color-carbon);
+  font-weight: 500;
+  font-size: var(--fs-chico);
+  cursor: pointer;
+}
+
+.chip:hover {
+  border-color: var(--color-ladrillo);
+}
+
+.chip[aria-pressed="true"],
+.chip.activo {
+  background: var(--color-ladrillo);
+  border-color: var(--color-ladrillo);
+  color: var(--color-superficie);
+}
+
+/* ---------- Tarjetas ---------- */
+.tarjeta {
+  background: var(--color-superficie);
+  border-radius: var(--radio-tarjeta);
+  box-shadow: var(--sombra);
+}
+
+/* ---------- Campos de formulario ---------- */
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-1);
+}
+
+.campo label {
+  font-weight: 700;
+  font-size: var(--fs-chico);
+}
+
+.input {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px var(--esp-2);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-campo);
+  background: var(--color-fondo);
+  font-size: var(--fs-chico);
+}
+
+.input::placeholder {
+  color: var(--color-texto-secundario);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-ladrillo);
+  box-shadow: 0 0 0 3px var(--color-ladrillo-suave);
+}
+
+.input[aria-invalid="true"] {
+  border-color: var(--color-ladrillo);
+  background: var(--color-ladrillo-suave);
+}
+
+textarea.input {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.error-campo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-ladrillo);
+  font-weight: 700;
+  font-size: var(--fs-chico);
+}
+
+.alerta-error {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-1);
+  padding: 12px var(--esp-2);
+  border: 1px solid var(--color-ladrillo);
+  border-radius: var(--radio-campo);
+  background: var(--color-ladrillo-suave);
+  color: var(--color-ladrillo);
+  font-weight: 700;
+  font-size: var(--fs-chico);
+}

@@ -1,0 +1,130 @@
+.listado {
+  padding-top: var(--esp-5);
+}
+
+.listado-hero h1 {
+  font-size: var(--fs-hero);
+}
+
+.listado-hero p {
+  margin: 4px 0 var(--esp-3);
+}
+
+.listado-resumen {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--esp-2);
+  min-height: 32px;
+  margin: var(--esp-3) 0 var(--esp-2);
+}
+
+.listado-resumen strong {
+  font-size: 20px;
+}
+
+.link-limpiar {
+  flex: none;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-ladrillo);
+  font-weight: 700;
+  font-size: var(--fs-chico);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.link-limpiar:hover {
+  color: var(--color-ladrillo-hover);
+}
+
+.grilla {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--esp-3);
+}
+
+.listado-error {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--esp-2);
+}
+
+.listado-filtros-cel {
+  display: flex;
+  gap: var(--esp-1);
+  margin: 0 calc(-1 * var(--gutter));
+  padding: 0 var(--gutter) 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.listado-filtros-cel::-webkit-scrollbar {
+  display: none;
+}
+
+.btn-filtros {
+  flex: none;
+  min-height: 40px;
+  padding: 0 var(--esp-2);
+  border-radius: var(--radio-pildora);
+  font-size: var(--fs-chico);
+}
+
+.chip-quitar {
+  flex: none;
+  border-color: var(--color-ladrillo);
+  background: var(--color-superficie);
+  color: var(--color-ladrillo);
+  font-weight: 700;
+}
+
+/* Visibilidad según breakpoint */
+.solo-celular {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .grilla {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .solo-escritorio {
+    display: none;
+  }
+}
+
+@media (max-width: 639px) {
+  .listado {
+    padding-top: var(--esp-3);
+  }
+
+  .listado-hero p {
+    margin-bottom: var(--esp-2);
+  }
+
+  .grilla {
+    grid-template-columns: 1fr;
+    gap: var(--esp-2);
+  }
+
+  .solo-barra,
+  .solo-barra-inline {
+    display: none;
+  }
+
+  .solo-celular {
+    display: flex;
+  }
+
+  .listado-resumen {
+    margin: var(--esp-2) 0 12px;
+  }
+
+  .listado-resumen strong {
+    font-size: 18px;
+  }
+}

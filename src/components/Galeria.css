@@ -1,0 +1,209 @@
+.galeria img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.galeria-escritorio {
+  display: grid;
+  grid-template-columns: 1fr;
+  /* minmax(0, …) para que el tamaño natural de las fotos no estire la grilla */
+  grid-template-rows: minmax(0, 1fr);
+  gap: var(--esp-2);
+  height: 400px;
+}
+
+.galeria.con-miniaturas .galeria-escritorio {
+  grid-template-columns: 1fr 240px;
+}
+
+.galeria-principal {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radio-tarjeta);
+  background: var(--color-borde);
+}
+
+.galeria-vacia .galeria-principal {
+  height: 400px;
+}
+
+.galeria-contador {
+  position: absolute;
+  left: var(--esp-2);
+  bottom: var(--esp-2);
+  padding: 4px var(--esp-2);
+  border-radius: var(--radio-pildora);
+  background: rgba(35, 31, 29, .72);
+  color: var(--color-superficie);
+  font-weight: 700;
+  font-size: var(--fs-chico);
+  font-variant-numeric: tabular-nums;
+}
+
+.galeria-flecha {
+  position: absolute;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 253, 249, .9);
+  color: var(--color-carbon);
+  box-shadow: var(--sombra);
+  transform: translateY(-50%);
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity .15s;
+}
+
+.galeria-flecha.izq { left: var(--esp-2); }
+.galeria-flecha.der { right: var(--esp-2); }
+
+.galeria-principal:hover .galeria-flecha,
+.galeria-flecha:focus-visible {
+  opacity: 1;
+}
+
+.galeria-miniaturas {
+  display: grid;
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  gap: var(--esp-2);
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.galeria-miniatura {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
+  border: 2px solid transparent;
+  border-radius: var(--radio-campo);
+  background: var(--color-borde);
+  cursor: pointer;
+}
+
+.galeria-miniatura img,
+.galeria-miniatura .foto-placeholder {
+  position: absolute;
+  inset: 0;
+}
+
+.galeria-miniatura[aria-current="true"] {
+  border-color: var(--color-ladrillo);
+}
+
+.galeria-mas {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(35, 31, 29, .6);
+  color: var(--color-superficie);
+  font-weight: 700;
+}
+
+/* ---------- Celular ---------- */
+.galeria-cel {
+  display: none;
+}
+
+.galeria-boton-volver {
+  position: absolute;
+  top: var(--esp-2);
+  left: var(--esp-2);
+  z-index: 2;
+  display: none;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-superficie);
+  color: var(--color-carbon);
+  box-shadow: var(--sombra);
+}
+
+@media (max-width: 639px) {
+  .galeria {
+    margin: 0 calc(-1 * var(--gutter));
+  }
+
+  .galeria-escritorio {
+    display: none;
+  }
+
+  .galeria-vacia .galeria-principal {
+    height: 280px;
+    border-radius: 0;
+  }
+
+  .galeria-cel {
+    position: relative;
+    display: block;
+  }
+
+  .galeria-boton-volver {
+    display: grid;
+  }
+
+  .galeria-pista {
+    display: flex;
+    height: 300px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+
+  .galeria-pista::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Cada foto ocupa casi todo el ancho para que asome la siguiente */
+  .galeria-slide {
+    flex: 0 0 94%;
+    scroll-snap-align: start;
+    padding-right: 4px;
+  }
+
+  .galeria-slide:last-child {
+    flex-basis: 100%;
+    padding-right: 0;
+  }
+
+  .galeria-contador.arriba {
+    top: var(--esp-2);
+    right: var(--esp-2);
+    bottom: auto;
+    left: auto;
+  }
+
+  .galeria-puntos {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    display: flex;
+    gap: 6px;
+    transform: translateX(-50%);
+  }
+
+  .galeria-puntos span {
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(255, 253, 249, .7);
+    transition: width .2s;
+  }
+
+  .galeria-puntos span.activo {
+    width: 20px;
+    background: var(--color-superficie);
+  }
+}

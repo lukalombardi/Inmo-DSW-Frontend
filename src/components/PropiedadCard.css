@@ -1,0 +1,83 @@
+.prop-card {
+  overflow: hidden;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.prop-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(35, 31, 29, .12);
+}
+
+.prop-card-link {
+  display: block;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+.prop-card-foto {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: var(--color-borde);
+}
+
+.prop-card-foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.prop-card-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+}
+
+.prop-card-cuerpo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--esp-2) var(--esp-3) var(--esp-3);
+}
+
+.prop-card-precio {
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+.prop-card-tipo {
+  font-weight: 700;
+  font-size: var(--fs-chico);
+}
+
+.prop-card-direccion {
+  color: var(--color-texto-secundario);
+  font-size: var(--fs-chico);
+}
+
+/* Esqueleto mientras carga */
+.prop-card-esqueleto .prop-card-foto,
+.prop-card-esqueleto .linea {
+  background: linear-gradient(90deg, #EFE7DA 0%, #F7F2EA 50%, #EFE7DA 100%);
+  background-size: 200% 100%;
+  animation: brillo 1.4s infinite linear;
+}
+
+.prop-card-esqueleto .linea {
+  height: 16px;
+  border-radius: 8px;
+}
+
+@keyframes brillo {
+  to { background-position: -200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prop-card,
+  .prop-card-esqueleto .prop-card-foto,
+  .prop-card-esqueleto .linea {
+    transition: none;
+    animation: none;
+  }
+}
