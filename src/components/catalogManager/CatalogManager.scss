@@ -1,0 +1,62 @@
+.catalog-manager {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-width: 640px;
+
+  &__title {
+    font-size: var(--font-size-subtitle);
+  }
+
+  &__form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: var(--space-2);
+    padding: var(--space-3);
+    background: var(--color-surface);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow);
+  }
+
+  &__field {
+    flex: 1;
+    min-width: 220px;
+  }
+
+  &__form-actions {
+    display: flex;
+    gap: var(--space-1);
+  }
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background: var(--color-surface);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow);
+  }
+
+  &__item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-1);
+    padding: 12px var(--space-3);
+
+    & + & {
+      border-top: 1px solid var(--color-border);
+    }
+  }
+
+  &__name {
+    font-weight: 700;
+  }
+
+  &__actions {
+    display: flex;
+    gap: var(--space-1);
+  }
+}

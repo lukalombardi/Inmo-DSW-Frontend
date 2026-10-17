@@ -1,0 +1,109 @@
+.admin {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+
+  &__topbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-2);
+  }
+
+  &__eyebrow {
+    color: var(--color-text-secondary);
+    font-weight: 700;
+    font-size: var(--font-size-mini);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  &__title {
+    font-size: var(--font-size-section);
+  }
+
+  &__tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 4px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-field);
+    background: var(--color-surface);
+  }
+
+  &__tab {
+    padding: var(--space-1) var(--space-2);
+    border-radius: 12px;
+    color: var(--color-text);
+    font-weight: 700;
+    font-size: var(--font-size-small);
+    text-decoration: none;
+
+    &:hover {
+      background: var(--color-border);
+    }
+
+    &--active,
+    &--active:hover {
+      background: var(--color-primary);
+      color: var(--color-surface);
+    }
+  }
+
+  &__section-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    margin-bottom: var(--space-2);
+  }
+
+  &__section-title {
+    font-size: var(--font-size-subtitle);
+  }
+
+  &__table-wrap {
+    overflow-x: auto;
+    background: var(--color-surface);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow);
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--font-size-small);
+
+    th,
+    td {
+      padding: 12px var(--space-2);
+      border-bottom: 1px solid var(--color-border);
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    th {
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-mini);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: 0;
+    }
+  }
+
+  &__price {
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  &__row-actions {
+    display: flex;
+    gap: var(--space-1);
+  }
+}

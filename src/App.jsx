@@ -1,32 +1,57 @@
-import { useEffect } from 'react'
-import { Routes, Route, useLocation } from 'react-router-dom'
-import Layout from './components/Layout.jsx'
-import Listado from './pages/Listado.jsx'
-import Detalle from './pages/Detalle.jsx'
-import Consulta from './pages/Consulta.jsx'
-import Login from './pages/Login.jsx'
-import NoEncontrado from './pages/NoEncontrado.jsx'
+import { useState } from 'react'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
-// Al cambiar de pantalla, arriba de todo (los cambios de filtros no cuentan).
-function ScrollArriba() {
-  const { pathname } = useLocation()
-  useEffect(() => { window.scrollTo(0, 0) }, [pathname])
-  return null
-}
+import Layout from './components/layout/Layout'
+import PropertyList from './components/propertyList/PropertyList'
+import PropertyDetails from './components/propertyDetails/PropertyDetails'
+import Login from './components/auth/login/Login'
+import Protected from './components/auth/protected/Protected'
+import Admin from './components/admin/Admin'
+import PageNotFound from './components/pageNotFound/PageNotFound'
+import './App.scss'
 
-export default function App() {
+const App = () => {
+  // Sesión: vive solo en memoria, si se recarga la página hay que volver a ingresar
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [token, setToken] = useState('')
+  const [user, setUser] = useState(null)
+
+  // data = respuesta de POST /auth/login: { token, user }
+  const handleSignIn = (data) => {
+    setToken(data.token)
+    setUser(data.user)
+    setIsLoggedIn(true)
+  }
+
+  const handleSignOut = () => {
+    setToken('')
+    setUser(null)
+    setIsLoggedIn(false)
+  }
+
   return (
-    <>
-      <ScrollArriba />
-      <Routes>
-        <Route element={<Layout />}>
-          <Route index element={<Listado />} />
-          <Route path="propiedades/:id" element={<Detalle />} />
-          <Route path="propiedades/:id/consulta" element={<Consulta />} />
-          <Route path="*" element={<NoEncontrado />} />
-        </Route>
-        <Route path="ingresar" element={<Login />} />
-      </Routes>
-    </>
+    <BrowserRouter>
+      <div className="app">
+        <ToastContainer />
+        <Routes>
+          <Route element={<Layout isLoggedIn={isLoggedIn} user={user} onSignOut={handleSignOut} />}>
+            <Route path="/" element={<Navigate to="/properties" replace />} />
+            <Route path="/properties" element={<PropertyList />} />
+            <Route path="/properties/:id" element={<PropertyDetails />} />
+            <Route path="/login" element={<Login onSignIn={handleSignIn} />} />
+
+            <Route element={<Protected isSignedIn={isLoggedIn} />}>
+              <Route path="/admin/*" element={<Admin token={token} user={user} />} />
+            </Route>
+
+            <Route path="*" element={<PageNotFound />} />
+          </Route>
+        </Routes>
+      </div>
+    </BrowserRouter>
   )
 }
+
+export default App

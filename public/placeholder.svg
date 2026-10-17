@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360">
+  <rect width="640" height="360" fill="#EFE7DA"/>
+  <path d="M320 110 L420 190 L400 190 L400 260 L240 260 L240 190 L220 190 Z" fill="#E3D6C3"/>
+  <rect x="300" y="210" width="40" height="50" fill="#EFE7DA"/>
+  <text x="320" y="305" text-anchor="middle" font-family="sans-serif" font-size="22" font-weight="700" fill="#6E6660">Sin fotos por ahora</text>
+</svg>

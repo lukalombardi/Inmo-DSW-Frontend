@@ -1,0 +1,167 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Paleta y medidas sacadas del diseño anterior (_old-design/src/styles/tokens.css) */
+:root {
+  /* Superficies */
+  --color-background: #F6F2EB;
+  --color-surface: #FFFDF9;
+
+  /* Texto */
+  --color-text: #231F1D;
+  --color-text-secondary: #6E6660;
+  --color-text-on-dark: #F6F2EB;
+
+  /* Color principal (ladrillo) */
+  --color-primary: #A3392F;
+  --color-primary-hover: #842D25;
+  --color-primary-soft: #F7E9E5;
+
+  /* Bordes */
+  --color-border: #E3DBCF;
+
+  /* Tipografía (las fuentes se importan en index.html) */
+  --font-heading: 'Fraunces', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+
+  --font-size-hero: 46px;
+  --font-size-section: 33px;
+  --font-size-subtitle: 26px;
+  --font-size-price: 28px;
+  --font-size-body: 18px;
+  --font-size-small: 16px;
+  --font-size-mini: 14px;
+
+  /* Espaciado (múltiplos de 8) */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 40px;
+  --space-6: 48px;
+  --space-8: 64px;
+
+  /* Bordes redondeados y sombra */
+  --radius-card: 24px;
+  --radius-field: 16px;
+  --radius-pill: 999px;
+  --shadow: 0 6px 20px rgba(35, 31, 29, 0.08);
+
+  /* Layout */
+  --max-width: 1240px;
+}
+
+/* En celular achicamos las letras */
+@media (max-width: 639px) {
+  :root {
+    --font-size-hero: 30px;
+    --font-size-section: 26px;
+    --font-size-subtitle: 22px;
+    --font-size-price: 24px;
+    --font-size-body: 16px;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+p {
+  margin: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+/* ── Campos de formulario ──
+   Bloque común para todos los formularios (login, consulta, propiedad, zonas) */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field__label {
+  font-weight: 700;
+  font-size: var(--font-size-small);
+}
+
+.field__input {
+  width: 100%;
+  min-height: 48px;
+  padding: 10px var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-field);
+  background: var(--color-background);
+  font-size: var(--font-size-small);
+}
+
+.field__input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-soft);
+}
+
+.field__input--error {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+}
+
+textarea.field__input {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.field__error {
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: var(--font-size-mini);
+}
+
+/* Checkbox con el texto al lado */
+.field--checkbox {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.field--checkbox input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-primary);
+}
+
+/* Texto de estado: "Cargando…", "No hay resultados", etc. */
+.status-text {
+  padding: var(--space-4) 0;
+  color: var(--color-text-secondary);
+  text-align: center;
+}
