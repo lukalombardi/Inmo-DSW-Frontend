@@ -1,62 +1,41 @@
 # IAL Propiedades — Frontend
 
-Frontend de la inmobiliaria para la materia Desarrollo de Software (UTN).
-React + Vite (JavaScript), React Router y React Toastify. Estilos en SCSS con BEM.
-Consume la API de `Inmo-DSW-Backend` **sin modificarla**.
+Frontend de la inmobiliaria para Desarrollo de Software. Consume la API de [Inmo-DSW-Backend](https://github.com/lukalombardi/Inmo-DSW-Backend).
+
+Stack: React + Vite · React Router · React Toastify · SCSS (BEM).
 
 ## Cómo levantarlo
 
-### 1. Backend (`Inmo-DSW-Backend`)
+Requisito: Node.js 20.19 o superior.
 
-```bash
-cd Inmo-DSW-Backend
-docker compose up --build
-```
+1. Levantar el backend y crear el primer admin, como explica su README ("Cómo levantarlo" y "Primer uso").
 
-La API queda en http://localhost:3000.
+2. En otra terminal, dentro de esta carpeta:
 
-**Primer admin (una sola vez):** el único endpoint que usa la API key es `POST /users`, y sirve para crear el primer administrador. Después todo funciona con el token del login.
+   ```bash
+   npm install
+   npm run dev
+   ```
 
-```http
-POST http://localhost:3000/users
-x-api-key: <API_KEY del .env del back>
-Content-Type: application/json
+   Abrir `http://localhost:5173`. No hace falta `.env`: la URL del back está en `src/shared/api.js`.
 
-{ "name": "Admin IAL", "email": "admin@inmo.com", "password": "admin123", "role": "ADMIN" }
-```
+## Primeros pasos
 
-> En la base de desarrollo ya existe ese admin (`admin@inmo.com` / `admin123`), con 5 zonas, 3 tipos y 7 propiedades con fotos de ejemplo.
-
-### 2. Frontend (esta carpeta)
-
-```bash
-cd Inmo-DSW-Frontend
-npm install
-npm run dev
-```
-
-Abrir http://localhost:5173.
-
-- No hace falta ningún `.env`: la URL del back está en `src/shared/api.js`.
-- No hace falta proxy: el back ya tiene `app.use(cors())`, que es la solución que muestra el apunte 2.2.
-
-### Fotos de ejemplo
-
-En `sample-photos/` hay 12 fotos libres de [Unsplash](https://unsplash.com/license) para la demo.
-Se suben desde **Panel → Editar propiedad → Fotos**. El front las manda a `POST /photos` y el back las guarda en su carpeta `uploads/`, que más adelante va a ser el volumen de Railway.
+1. Ingresar con el admin.
+2. En **Panel → Zonas** y **Panel → Tipos**, cargar al menos una zona y un tipo.
+3. En **Panel → Nueva propiedad**, crear una propiedad. Al guardar se abre la edición, donde se le suben fotos (JPG, PNG o WEBP de hasta 5 MB).
+4. Salir y ver la propiedad en el listado público, entrar al detalle y enviar una consulta.
 
 ## Pantallas
 
 | Ruta | Qué muestra | Acceso |
 |---|---|---|
-| `/` | Redirige a `/properties` | Público |
 | `/properties` | Listado con filtros por operación y zona | Público |
-| `/properties/:id` | Detalle con fotos y formulario de consulta | Público |
+| `/properties/:id` | Detalle con galería, mapa y formulario de consulta | Público |
 | `/login` | Ingreso del personal | Público |
-| `/admin` | Tabla de propiedades (editar / eliminar) | Logueado |
-| `/admin/new` | Crear propiedad | Logueado |
-| `/admin/edit/:id` | Editar propiedad y sus fotos | Logueado |
-| `/admin/zones` | ABM de zonas | Solo ADMIN |
-| `/admin/property-types` | ABM de tipos de propiedad | Solo ADMIN |
+| `/admin` | Tabla de propiedades (crear, editar, eliminar) | Logueado |
+| `/admin/edit/:id` | Edición de la propiedad y sus fotos | Logueado |
 | `/admin/inquiries` | Consultas recibidas | Logueado |
-| `*` | Página no encontrada | Público |
+| `/admin/zones`, `/admin/property-types` | ABM de zonas y tipos | Solo ADMIN |
+
+La sesión se guarda solo en memoria: al recargar la página hay que volver a ingresar.
