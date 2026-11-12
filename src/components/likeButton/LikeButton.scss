@@ -1,0 +1,55 @@
+.like-button {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+
+  &:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--color-primary-soft), var(--shadow);
+    border-color: var(--color-primary);
+  }
+
+  &__icon {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linejoin: round;
+  }
+
+  // Marcada: corazón lleno
+  &--active {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+
+    .like-button__icon {
+      fill: currentColor;
+    }
+  }
+
+  // Texto y botón dentro del toast "creá una cuenta"
+  &__prompt {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-1);
+    font-size: var(--font-size-small);
+  }
+}

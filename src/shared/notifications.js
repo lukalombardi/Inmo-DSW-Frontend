@@ -25,3 +25,10 @@ export const errorToast = (message, config) => {
 		...config
 	})
 }
+
+export const infoToast = (message, config) => {
+	return toast.info(message, {
+		...defaultNotificationConfig,
+		...config
+	})
+}
