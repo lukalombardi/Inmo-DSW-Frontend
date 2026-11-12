@@ -5,7 +5,7 @@ import { OPERATION_LABELS } from '../../shared/format'
 import { getProperties, getZones, getPropertyTypes } from './PropertyList.server'
 import './PropertyList.scss'
 
-const PropertyList = () => {
+const PropertyList = ({ likedIds, token, onLikedChange }) => {
   const [properties, setProperties] = useState([])
   const [zones, setZones] = useState([])
   const [propertyTypes, setPropertyTypes] = useState([])
@@ -55,7 +55,13 @@ const PropertyList = () => {
   )
 
   const propertiesMapped = filteredProperties.map((property) => (
-    <PropertyItem key={property.id} property={property} />
+    <PropertyItem
+      key={property.id}
+      property={property}
+      isLiked={likedIds.has(property.id)}
+      token={token}
+      onLikedChange={onLikedChange}
+    />
   ))
 
   const renderContent = () => {

@@ -1,8 +1,9 @@
 import { useRef, useState } from 'react'
-import { useNavigate } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import Button from '../../shared/button/Button'
 import { errorToast } from '../../../shared/notifications'
 import { getErrorMessage } from '../../../shared/api'
+import { isStaff } from '../../../shared/roles'
 import { initialLoginData, initialLoginErrors } from './Login.data'
 import { loginUser } from './Login.server'
 import './Login.scss'
@@ -49,7 +50,8 @@ const Login = ({ onSignIn }) => {
     loginUser(form, {
       onSuccess: (data) => {
         onSignIn(data)
-        navigate('/admin', { replace: true })
+        // El personal va al panel; un VISITOR no puede entrar ahí, va al listado
+        navigate(isStaff(data.user) ? '/admin' : '/properties', { replace: true })
       },
       onError: (err) => {
         console.error('loginUser failed:', err)
@@ -64,7 +66,7 @@ const Login = ({ onSignIn }) => {
     <div className="login">
       <form className="login__card" onSubmit={handleSubmit}>
         <header className="login__header">
-          <p className="login__eyebrow">Acceso del personal</p>
+          <p className="login__eyebrow">Tu cuenta</p>
           <h1 className="login__title">Ingresar</h1>
           <p className="login__subtitle">Usá tu email y contraseña de IAL Propiedades.</p>
         </header>
@@ -104,6 +106,10 @@ const Login = ({ onSignIn }) => {
         <Button type="submit" size="lg" disabled={isSending}>
           {isSending ? 'Ingresando…' : 'Ingresar'}
         </Button>
+
+        <p className="login__switch">
+          ¿No tenés cuenta? <Link to="/register" className="login__switch-link">Registrate</Link>
+        </p>
       </form>
     </div>
   )

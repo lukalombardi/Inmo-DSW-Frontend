@@ -92,8 +92,16 @@
     font-size: var(--font-size-mini);
   }
 
-  &__price {
+  // Precio con el corazón al lado
+  &__price-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
     margin-top: calc(-1 * var(--space-2));
+  }
+
+  &__price {
     font-family: var(--font-body);
     font-weight: 700;
     font-size: var(--font-size-section);

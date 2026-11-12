@@ -1,9 +1,10 @@
 import { Link } from 'react-router'
+import LikeButton from '../likeButton/LikeButton'
 import { getPhotoUrl } from '../../shared/api'
 import { OPERATION_LABELS, formatPrice, formatSquareMeters } from '../../shared/format'
 import './PropertyItem.scss'
 
-const PropertyItem = ({ property }) => {
+const PropertyItem = ({ property, isLiked, token, onLikedChange }) => {
   const { id, photos, operation, price, currency, propertyType, zone, address, squareMeters, rooms } = property
 
   // Si no tiene fotos, usamos la imagen de reemplazo de /public
@@ -33,6 +34,15 @@ const PropertyItem = ({ property }) => {
           </p>
         </div>
       </Link>
+
+      {/* Fuera del Link para no anidar un botón dentro de un <a> */}
+      <LikeButton
+        className="property-card__like"
+        property={property}
+        isLiked={isLiked}
+        token={token}
+        onLikedChange={onLikedChange}
+      />
     </article>
   )
 }

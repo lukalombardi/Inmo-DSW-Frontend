@@ -1,5 +1,6 @@
 import { Link, NavLink, Outlet, useNavigate } from 'react-router'
 import Button from '../shared/button/Button'
+import { isStaff } from '../../shared/roles'
 import './Layout.scss'
 
 // Header y footer comunes. <Outlet /> muestra la pantalla de la ruta hija.
@@ -27,14 +28,20 @@ const Layout = ({ isLoggedIn, user, onSignOut }) => {
             <NavLink to="/properties" end className={getLinkClass}>Propiedades</NavLink>
             {isLoggedIn ? (
               <>
-                <NavLink to="/admin" className={getLinkClass}>Panel</NavLink>
+                {/* El personal ve el panel; un VISITOR, sus favoritos */}
+                {isStaff(user)
+                  ? <NavLink to="/admin" className={getLinkClass}>Panel</NavLink>
+                  : <NavLink to="/favorites" className={getLinkClass}>Favoritos</NavLink>}
                 <span className="layout__user">{user?.name}</span>
                 <Button variant="secondary" size="sm" onClick={handleSignOut}>
                   Salir
                 </Button>
               </>
             ) : (
-              <NavLink to="/login" className={getLinkClass}>Ingresar</NavLink>
+              <>
+                <NavLink to="/login" className={getLinkClass}>Ingresar</NavLink>
+                <NavLink to="/register" className={getLinkClass}>Registrarse</NavLink>
+              </>
             )}
           </nav>
         </div>

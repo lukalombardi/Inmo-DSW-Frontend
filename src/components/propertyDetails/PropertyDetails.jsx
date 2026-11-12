@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router'
 import Button from '../shared/button/Button'
 import InquiryForm from '../inquiryForm/InquiryForm'
+import LikeButton from '../likeButton/LikeButton'
 import { getPhotoUrl } from '../../shared/api'
 import { OPERATION_LABELS, formatPrice, formatSquareMeters, formatYesNo } from '../../shared/format'
 import { MAP_CITY, MAP_ZOOM } from './PropertyDetails.const'
 import { getProperty } from './PropertyDetails.server'
 import './PropertyDetails.scss'
 
-const PropertyDetails = () => {
+const PropertyDetails = ({ likedIds, token, onLikedChange }) => {
   const navigate = useNavigate()
   const { id } = useParams()
   const { state } = useLocation()
@@ -90,7 +91,15 @@ const PropertyDetails = () => {
             <span className="property-details__badge">{OPERATION_LABELS[operation]}</span>
             {propertyType.description} · {zone.name}
           </p>
-          <h1 className="property-details__price">{formatPrice(price, currency)}</h1>
+          <div className="property-details__price-row">
+            <h1 className="property-details__price">{formatPrice(price, currency)}</h1>
+            <LikeButton
+              property={property}
+              isLiked={likedIds.has(property.id)}
+              token={token}
+              onLikedChange={onLikedChange}
+            />
+          </div>
           <p className="property-details__address">{address}</p>
 
           <dl className="property-details__features">
