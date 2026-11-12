@@ -5,7 +5,7 @@ import InquiryForm from '../inquiryForm/InquiryForm'
 import LikeButton from '../likeButton/LikeButton'
 import { getPhotoUrl } from '../../shared/api'
 import { OPERATION_LABELS, formatPrice, formatSquareMeters, formatYesNo } from '../../shared/format'
-import { MAP_ZOOM_AREA } from './PropertyDetails.const'
+import { MAP_CITY, MAP_ZOOM } from './PropertyDetails.const'
 import { getProperty } from './PropertyDetails.server'
 import './PropertyDetails.scss'
 
@@ -54,11 +54,13 @@ const PropertyDetails = ({ likedIds, token, onLikedChange }) => {
   const mainPhotoSrc = photos.length > 0 ? getPhotoUrl(photos[selectedPhoto]) : '/placeholder.svg'
   const hasCoordinates = latitude !== null && longitude !== null
 
-  // Mapa de OpenStreetMap: se le pasa un recuadro (bbox) alrededor del punto y el marcador.
-  // Prisma manda las coordenadas como string, por eso Number().
-  const lat = Number(latitude)
-  const lon = Number(longitude)
-  const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${lon - MAP_ZOOM_AREA},${lat - MAP_ZOOM_AREA},${lon + MAP_ZOOM_AREA},${lat + MAP_ZOOM_AREA}&layer=mapnik&marker=${lat},${lon}`
+  // Mapa de Google Maps embebido. Si la propiedad tiene coordenadas se usan (es más preciso);
+  // si no, se busca por dirección + zona + ciudad. Prisma manda las coordenadas como string.
+  const mapQuery = hasCoordinates
+    ? `${Number(latitude)},${Number(longitude)}`
+    : `${address}, ${zone.name}, ${MAP_CITY}`
+  const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(mapQuery)}&z=${MAP_ZOOM}&output=embed`
+  const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`
 
   return (
     <article className="property-details">
@@ -124,28 +126,29 @@ const PropertyDetails = ({ likedIds, token, onLikedChange }) => {
             <p className="property-details__description">{description}</p>
           </section>
 
-          {hasCoordinates && (
-            <section>
-              <h2 className="property-details__section-title">Ubicación</h2>
-              <iframe
-                className="property-details__map"
-                title={`Mapa de ${address}`}
-                src={mapSrc}
-                loading="lazy"
-              />
-              <p className="property-details__map-caption">
-                Latitud {Number(latitude)} · Longitud {Number(longitude)} ·{' '}
-                <a
-                  className="property-details__map-link"
-                  href={`https://www.openstreetmap.org/?mlat=${latitude}&mlon=${longitude}#map=17/${latitude}/${longitude}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Ver en el mapa
-                </a>
-              </p>
-            </section>
-          )}
+          <section>
+            <h2 className="property-details__section-title">Ubicación</h2>
+            <iframe
+              className="property-details__map"
+              title={`Mapa de ${address}`}
+              src={mapSrc}
+              loading="lazy"
+            />
+            <p className="property-details__map-caption">
+              {hasCoordinates
+                ? `Latitud ${Number(latitude)} · Longitud ${Number(longitude)}`
+                : `${address}, ${zone.name}`}
+              {' · '}
+              <a
+                className="property-details__map-link"
+                href={mapLink}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Ver en Google Maps
+              </a>
+            </p>
+          </section>
         </div>
 
         <aside className="property-details__aside">

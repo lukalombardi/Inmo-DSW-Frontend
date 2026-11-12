@@ -2,18 +2,20 @@ import { useEffect, useState } from 'react'
 import PropertyItem from '../propertyItem/PropertyItem'
 import Button from '../shared/button/Button'
 import { OPERATION_LABELS } from '../../shared/format'
-import { getProperties, getZones } from './PropertyList.server'
+import { getProperties, getZones, getPropertyTypes } from './PropertyList.server'
 import './PropertyList.scss'
 
 const PropertyList = ({ likedIds, token, onLikedChange }) => {
   const [properties, setProperties] = useState([])
   const [zones, setZones] = useState([])
+  const [propertyTypes, setPropertyTypes] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(false)
 
   // Filtros: '' significa "todas"
   const [operationFilter, setOperationFilter] = useState('')
   const [zoneFilter, setZoneFilter] = useState('')
+  const [typeFilter, setTypeFilter] = useState('')
 
   useEffect(() => {
     getProperties({
@@ -32,17 +34,24 @@ const PropertyList = ({ likedIds, token, onLikedChange }) => {
       onSuccess: (data) => setZones(data),
       onError: (err) => console.error('getZones failed:', err),
     })
+
+    getPropertyTypes({
+      onSuccess: (data) => setPropertyTypes(data),
+      onError: (err) => console.error('getPropertyTypes failed:', err),
+    })
   }, [])
 
   const handleClearFilters = () => {
     setOperationFilter('')
     setZoneFilter('')
+    setTypeFilter('')
   }
 
-  // Filtramos en el cliente. El select devuelve texto, por eso Number(zoneFilter)
+  // Filtramos en el cliente. Los select devuelven texto, por eso Number(...)
   const filteredProperties = properties.filter((property) =>
     (operationFilter === '' || property.operation === operationFilter) &&
-    (zoneFilter === '' || property.zoneId === Number(zoneFilter))
+    (zoneFilter === '' || property.zoneId === Number(zoneFilter)) &&
+    (typeFilter === '' || property.propertyTypeId === Number(typeFilter))
   )
 
   const propertiesMapped = filteredProperties.map((property) => (
@@ -102,7 +111,7 @@ const PropertyList = ({ likedIds, token, onLikedChange }) => {
         </div>
 
         <select
-          className="field__input property-list__zone"
+          className="field__input property-list__select"
           aria-label="Filtrar por zona"
           value={zoneFilter}
           onChange={(event) => setZoneFilter(event.target.value)}
@@ -110,6 +119,18 @@ const PropertyList = ({ likedIds, token, onLikedChange }) => {
           <option value="">Todas las zonas</option>
           {zones.map((zone) => (
             <option key={zone.id} value={zone.id}>{zone.name}</option>
+          ))}
+        </select>
+
+        <select
+          className="field__input property-list__select"
+          aria-label="Filtrar por tipo"
+          value={typeFilter}
+          onChange={(event) => setTypeFilter(event.target.value)}
+        >
+          <option value="">Todos los tipos</option>
+          {propertyTypes.map((propertyType) => (
+            <option key={propertyType.id} value={propertyType.id}>{propertyType.description}</option>
           ))}
         </select>
       </div>
